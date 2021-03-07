@@ -1,6 +1,10 @@
-var socket = io();
+const socket = io();
 
-var form = document.querySelector('form');
+const form = document.querySelector('form');
+const inputName = prompt('What is your name?')
+const name = inputName? inputName: 'Guest'
+appendMessage('You joined');
+socket.emit('new-user', name)
 
 form.addEventListener('submit', function(e) {
   e.preventDefault();
@@ -10,17 +14,27 @@ form.addEventListener('submit', function(e) {
   input.value = '';
 });
 
-socket.on('message', function(text) {
+socket.on('message', data => {
+  appendMessage(`<b>${data.name}</b>: ${data.msg}`);
+});
+
+socket.on('user-connected', name => {
+  appendMessage(`${name} connected`);
+});
+
+socket.on('user-disconnected', name => {
+  appendMessage(`${name} disconnected`);
+});
+
+function appendMessage(text) {
   if (!text) {
     return;
   }
-  var container = document.querySelector('section');
-  var newMessage = document.createElement('p');
-  newMessage.innerText = text;
+  let container = document.querySelector('section');
+  let newMessage = document.createElement('p');
+  newMessage.innerHTML = text;
   container.appendChild(newMessage);
-
-  var seperator = document.createElement('br');
+  let seperator = document.createElement('br');
   container.appendChild(seperator);
-
   container.scrollTop = container.scrollHeight;
-});
+}
