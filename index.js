@@ -11,7 +11,7 @@ const io = require('socket.io')(server);
 
 app.use(express.static('client'));
 
-server.listen(PORT, function( ) {
+server.listen(PORT, function() {
   console.log('Chat server running');
 });
 

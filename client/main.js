@@ -15,24 +15,28 @@ form.addEventListener('submit', function(e) {
 });
 
 socket.on('message', data => {
-  appendMessage(`<b>${data.name}</b>: ${data.msg}`);
+  appendMessage(data.name, data.msg);
 });
 
 socket.on('user-connected', name => {
-  appendMessage(`${name} connected`);
+  appendMessage(name, 'has connected to the room');
 });
 
 socket.on('user-disconnected', name => {
-  appendMessage(`${name} disconnected`);
+  appendMessage(name, 'has disconnected');
 });
 
-function appendMessage(text) {
+function appendMessage(name, text) {
   if (!text) {
     return;
   }
   let container = document.querySelector('section');
+  let message = document.createElement('span');
+  let author = document.createElement('span');
   let newMessage = document.createElement('p');
-  newMessage.innerHTML = text;
+  author.innerText = name;
+  message.innerText = text;
+  newMessage.innerHTML = '<b>' + author.innerHTML + '</b>: ' + message.innerHTML;
   container.appendChild(newMessage);
   let seperator = document.createElement('br');
   container.appendChild(seperator);
