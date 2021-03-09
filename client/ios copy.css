@@ -36,7 +36,7 @@ body {
     margin: 0px;
   }
   
-  p.msgFrom {
+  p:nth-of-type(odd) {
     position: relative;
     padding: 10px 20px;
     color: white;
@@ -45,7 +45,7 @@ body {
     float: right;
   }
   
-  p.msgFrom:before {
+  p:nth-of-type(odd):before {
     content: '';
     position: absolute;
     z-index: -1;
@@ -57,7 +57,7 @@ body {
     -webkit-transform: translate(0, -2px);
   }
   
-  p.msgFrom:after {
+  p:nth-of-type(odd):after {
     content: '';
     position: absolute;
     z-index: 1;
@@ -70,7 +70,7 @@ body {
     -webkit-transform: translate(-30px, -2px);
   }
   
-  p.msgSelf {
+  p:nth-of-type(even) {
     position: relative;
     padding: 10px 20px;
     background: #e5e5ea;
@@ -79,7 +79,7 @@ body {
     float: left;
   }
   
-  p.msgSelf:before {
+  p:nth-of-type(even):before {
     content: '';
     position: absolute;
     z-index: 2;
@@ -91,7 +91,7 @@ body {
     -webkit-transform: translate(0, -2px);
   }
   
-  p.msgSelf:after {
+  p:nth-of-type(even):after {
     content: '';
     position: absolute;
     z-index: 3;

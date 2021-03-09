@@ -18,6 +18,10 @@ socket.on('message', data => {
   appendMessage(data.name, data.msg);
 });
 
+socket.on('messageSelf', data => {
+  appendMessageSelf(data.name, data.msg);
+});
+
 socket.on('user-connected', name => {
   appendMessage(name, 'has connected to the room');
 });
@@ -34,6 +38,25 @@ function appendMessage(name, text) {
   let message = document.createElement('span');
   let author = document.createElement('span');
   let newMessage = document.createElement('p');
+  newMessage.className += ("msgFrom");
+  author.innerText = name;
+  message.innerText = text;
+  newMessage.innerHTML = '<b>' + author.innerHTML + '</b>: ' + message.innerHTML;
+  container.appendChild(newMessage);
+  let seperator = document.createElement('br');
+  container.appendChild(seperator);
+  container.scrollTop = container.scrollHeight;
+}
+
+function appendMessageSelf(name, text) {
+  if (!text) {
+    return;
+  }
+  let container = document.querySelector('section');
+  let message = document.createElement('span');
+  let author = document.createElement('span');
+  let newMessage = document.createElement('p');
+  newMessage.className += ("msgSelf");
   author.innerText = name;
   message.innerText = text;
   newMessage.innerHTML = '<b>' + author.innerHTML + '</b>: ' + message.innerHTML;
