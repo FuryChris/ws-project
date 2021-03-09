@@ -20,6 +20,7 @@ const users = {}
 io.on('connection', socket => {
   socket.on('message', msg => {
     socket.broadcast.emit('message', { msg: msg, name: users[socket.id]});
+    socket.emit('messageSelf', { msg: msg, name: users[socket.id]});
   });
   socket.on('new-user', name => {
     users[socket.id] = name
